@@ -1,0 +1,21 @@
+services:
+  base:
+    build:
+      context: .
+      dockerfile: Dockerfile.base
+      args:
+        MOC_VERSION: 0.13.3
+        MOPS_VERSION: 1.1.1
+        IC_WASM_VERSION: 0.9.0
+    image: local/moc-0.13.3
+  wasm:
+    build:
+      context: .
+      args:
+        REMOTE: "ghcr.io/research-ag/motoko-tools/motoko-tools:moc-0.13.3"
+        LOCAL: local/moc-0.13.3
+    volumes:
+      - ./out:/project/out
+    environment:
+      compress : no
+    command: bash --login build.sh
