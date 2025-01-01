@@ -22,6 +22,7 @@ jobs:
 
       - name: Build Docker image
         run: |
+          export DOCKER_BUILDKIT=1
           docker compose build \
             --build-arg BUILDKIT_INLINE_CACHE=1 \
             --cache-from=type=registry,ref=ghcr.io/research-ag/motoko-build:cache \
