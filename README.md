@@ -36,7 +36,7 @@ Building the base image locally (slower):
 
 ```bash
 docker-compose build base
-docker-compose build wasm --build-arg REMOTE=
+docker-compose build wasm
 ```
 
 ### 3. Build the Wasm module
