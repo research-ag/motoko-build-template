@@ -21,7 +21,11 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker image
-        run: docker compose build base
+        run: |
+          docker compose build \
+            --build-arg BUILDKIT_INLINE_CACHE=1 \
+            --cache-from=type=registry,ref=ghcr.io/research-ag/motoko-build:cache \
+            --cache-to=type=registry,ref=ghcr.io/research-ag/motoko-build:cache,mode=max base
 
       - name: Push Docker image
         run: docker push "ghcr.io/research-ag/motoko-build:${{ github.ref_name }}"
