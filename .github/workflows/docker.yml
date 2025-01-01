@@ -24,4 +24,4 @@ jobs:
         run: docker compose build base
 
       - name: Push Docker image
-        run: docker push "ghcr.io/research-ag/motoko-build::${{ github.ref_name }}"
+        run: docker push "ghcr.io/research-ag/motoko-build:${{ github.ref_name }}"
