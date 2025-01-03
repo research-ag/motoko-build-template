@@ -82,7 +82,7 @@ The output when run in the main branch of this repo is
 ```
 In practice, this hash has to be compared against the module hash of the deployed canister.
 
-### Deployed module hash
+### Compare module hash
 
 The module hash of a deployed canister can be obtained by dfx with:
 
