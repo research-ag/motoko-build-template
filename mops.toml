@@ -1,6 +1,5 @@
 [dependencies]
-base = "0.13.3"
+base = "0.13.4"
 
 [toolchain]
-moc = "0.13.3"
-
+moc = "0.13.4"
