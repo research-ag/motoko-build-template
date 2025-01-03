@@ -218,10 +218,10 @@ The top section looks for example like this:
 ```
 x-base-image:
   versions:
-    moc: &moc 0.13.3
-    ic-wasm: &ic_wasm 0.9.0
+    moc: &moc 0.13.4
+    ic-wasm: &ic_wasm 0.9.1
     mops: &mops 1.1.1
-  name: &base_name "ghcr.io/research-ag/motoko-build:moc-0.13.3"
+  name: &base_name "ghcr.io/research-ag/motoko-build:moc-0.13.4"
 ```
 
 ### Custom toolchain
@@ -267,6 +267,7 @@ The following base images are available in the registry at `ghcr.io/research-ag/
 |tag|moc|ic-wasm|mops|
 |---|---|---|---|
 |0.13.3|0.13.3|0.9.0|1.1.1|
+|0.13.4|0.13.4|0.9.1|1.1.1|
 
 ## Test vectors
 
@@ -275,3 +276,4 @@ The following Wasm module hashes are obtained from the empty canister in this te
 |branch|module hash|
 |---|---|
 |moc-0.13.3|6c17cb5f5f5bb8f2d09452632b76dbf3be0fd76047d0b6f87f6460c7f88812d6|
+|moc-0.13.4|4838b9b9fe14b71e816ad83aef9f2ff9b07fd0459949622e08f3a3908958148a|
