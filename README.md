@@ -98,35 +98,29 @@ If any verification has been run before and the source code has been modified si
 for example by checking out a new commit, then:
 
 ```
-docker-compose build wasm
-docker-compose run --rm wasm
+docker-compose run --rm --build wasm
 ```
 
-As a rule, every time the source code, the did file (did/service.did) or the dependencies (mops.toml, mops.lock) get modified we have to re-run
-
-```
-docker-compose build wasm
-```
+As a rule, each time the source code, the did file (did/service.did) or the dependencies (mops.toml, mops.lock) get modified
+we have to add the `--build` option to the next run.
 
 ### Full verification
 
 ```
 docker-compose build base
-docker-compose build wasm
-docker-compose run --rm wasm
+docker-compose run --rm --build wasm
 ```
 
-Slow verification builds the base image locally so that we are not trusting the registry.
+Full verification builds the base image locally so that we are not trusting the registry.
 The above command sequence works in all cases - it does not matter if fast verification has been run before or not.
 
 ### Fast verification again
 
-If after slow verification we want to try fast verification again then:
+If after full verification we want to try fast verification again then:
 
 ```
 docker-compose pull base
-docker-compose build wasm
-docker-compose run --rm wasm
+docker-compose run --rm --build wasm
 ```
 
 This pulls the base image from the registry.
