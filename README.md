@@ -22,6 +22,13 @@ The repository is used by three different roles in the following ways:
 
 * Verifier: runs the reproducible build in the canister repo, then compares the resulting module hash against the deployed canister.
 
+The repository is structured to make verification as easy possible.
+For example:
+
+* have minimal requirements (only docker)
+* be easy to use (run a single command)
+* be fast
+
 ## Prerequisites
 
 ### Docker
@@ -168,6 +175,8 @@ Hence, we supress the backwards compatibility check with the `-y` option.
   * Use dfx to build, test and deploy locally
 * Update mops.lock file
 
+The top-level actor code should be in `src/main.mo`.
+
 ### mops.lock 
 
 The `mops.lock` file is created or updated with the command
@@ -201,12 +210,15 @@ This will affect the Wasm module hash.
 
 ### Choose initial toolchain
 
-When creating a fresh canister repository it is recommended to use the `main` branch from `motoko-build-template` as the template. 
-It is set up for the latest `moc` version and matching `ic-wasm` version. 
+When creating a fresh canister repository 
+from `motoko-build-template`
+then it only has the `main` branch.
+This branch is set up for the latest available `moc` version and 
+an `ic-wasm` version that was available at the time when the `moc` version was released.
 
-It is possible to use a different branch as well if we want an older `moc` version.
-The branches are labeled in the form `moc-x.y.z`.
-Each branch is set up with the specified `moc` version and an `ic-wasm` version that was available at the time when the `moc` version was released.
+To start with an older `moc` version we have to clone the repo instead of using it as a template.
+Then we can checkout older tags and continue from there.
+Tags are in the form `moc-x.y.z`.
 
 ### Upgrade toolchain
 
@@ -244,6 +256,8 @@ The verifier has to build the base image locally.
 ### Advanced modifications
 
 Advances users can modify `Dockerfile`, `Dockerfile.base`, `docker-compose.yml` and `build.sh` to their liking.
+For example, `build.sh` always build the canister from `src/main.mo`.
+This can be changed inside the build script. 
 
 ## Building natively
 
