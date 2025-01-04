@@ -19,4 +19,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
+          name: wasm-module
           path: out/out_Linux_x86_64.wasm*
