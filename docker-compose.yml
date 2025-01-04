@@ -3,7 +3,7 @@ x-base-image:
     moc: &moc 0.13.5 
     ic-wasm: &ic_wasm 0.9.1
     mops: &mops 1.2.0
-  name: &base_name "ghcr.io/research-ag/motoko-build:moc-0.13.4"
+  name: &base_name "ghcr.io/research-ag/motoko-build:moc-0.13.5"
 
 services:
   base:
