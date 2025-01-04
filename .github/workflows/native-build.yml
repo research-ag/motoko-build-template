@@ -1,0 +1,17 @@
+name: 🚀 Build the Wasm module and compute module hash
+
+on:
+  push:
+    tags:
+      - 'build-*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: docker compose run --rm wasm
