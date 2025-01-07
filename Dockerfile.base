@@ -1,5 +1,4 @@
-ARG PLATFORM=linux/amd64
-FROM --platform=${PLATFORM} node:22-bookworm-slim
+FROM --platform=linux/amd64 node:22-bookworm-slim
 
 RUN apt-get -yq update &&\
   apt-get -yqq install --no-install-recommends ca-certificates curl tar &&\
