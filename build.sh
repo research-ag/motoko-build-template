@@ -1,7 +1,8 @@
 #!/bin/bash
 
+MOC_ARGS="" ## place args like compacting-gc, incremental-gc here
 OUT=out/out_$(uname -s)_$(uname -m).wasm
-moc src/main.mo -o $OUT -c -no-check-ir --release --public-metadata candid:service --public-metadata candid:args $(mops sources)
+moc src/main.mo -o $OUT -c -no-check-ir --release --public-metadata candid:service --public-metadata candid:args $(mops sources) ${MOC_ARGS}
 ic-wasm $OUT -o $OUT shrink
 if [ -f did/service.did ]; then
     echo "Adding service.did to metadata section."
