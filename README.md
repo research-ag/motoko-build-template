@@ -196,7 +196,7 @@ Place the `did` file to be embedded into the Wasm module in `did/service.did`.
 
 ### Moc arguments
 
-Arguments to `moc` such as specifiying the gc strategty (e.g. `--compacting-gc`, etc.) have to be placed in the `MOC_ARGS` variable in `build.sh`.
+Arguments to `moc` such as specifiying the gc strategy (e.g. `--compacting-gc`, etc.) have to be placed in the `MOC_ARGS` variable in `build.sh`.
 
 ### Enable compression
 
