@@ -182,7 +182,7 @@ The top-level actor code should be in `src/main.mo`.
 The `mops.lock` file is created or updated with the command
 
 ```
-mops i —lock update
+mops i —-lock update
 ```
 
 mops generates it from `mops.toml`.
@@ -193,6 +193,10 @@ For a public service canister it is recommended to embed a hand-crafted `did` fi
 The hand-crafted file can be better structured, more verbose and have better type names.  
 
 Place the `did` file to be embedded into the Wasm module in `did/service.did`.
+
+### Moc arguments
+
+Arguments to `moc` such as specifiying the gc strategy (e.g. `--compacting-gc`, etc.) have to be placed in the `MOC_ARGS` variable in `build.sh`.
 
 ### Enable compression
 
