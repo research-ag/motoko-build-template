@@ -1,5 +1,5 @@
 ARG IMAGE
-FROM $IMAGE
+FROM --platform=linux/amd64 ${IMAGE}
 
 WORKDIR /project
 

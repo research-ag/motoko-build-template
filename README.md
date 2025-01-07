@@ -36,21 +36,9 @@ For example:
 The verifier and deployer need `docker` installed and running.
 The developer does not necessarily need `docker`.
 
-#### On Mac
-
-On Mac, `colima` is required which can be installed from https://github.com/abiosoft/colima.
-It is important to start colima with the command:
-
-```
-colima start --arch x86_64
-```
-
-If colima had been started before without the `--arch` option then we must run
-
-```
-colima delete
-```
-first before starting it again.
+On Mac, it is recommended to install `colima` from https://github.com/abiosoft/colima.
+When using `colima` it is ok to use value `host` in the `--arch`.
+This is also the default so the `--arch` option can be omitted.
 
 ### dfx
 
