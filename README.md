@@ -75,7 +75,12 @@ The output when run in the main branch of this repo is
 ```
 6c17cb5f5f5bb8f2d09452632b76dbf3be0fd76047d0b6f87f6460c7f88812d6  out/out_Linux_x86_64.wasm
 ```
-In practice, this hash has to be compared against the module hash of the deployed canister.
+This is the hash that needs to be compared against the module hash of the deployed canister.
+
+The base docker image is optimized for size and is 76 MB large.
+
+Fast verification from scratch, i.e. including downloading the base image, takes less than 10 seconds when run on this repo
+(with an empty actor).
 
 ### Compare module hash
 
@@ -96,7 +101,7 @@ for example by checking out a new commit, then:
 docker-compose run --rm --build wasm
 ```
 
-As a rule, each time the source code, the did file (did/service.did) or the dependencies (mops.toml, mops.lock) get modified
+As a rule, each time the source code, the did file (did/service.did) or the dependencies (mops.toml) get modified
 we have to add the `--build` option to the next run.
 
 ### Full verification
@@ -108,6 +113,9 @@ docker-compose run --rm --build wasm
 
 Full verification builds the base image locally so that we are not trusting the registry.
 The above command sequence works in all cases - it does not matter if fast verification has been run before or not.
+
+Full verification from scratch takes less than 20 seconds when run on this repo
+(with an empty actor).
 
 ### Fast verification again
 
@@ -161,19 +169,10 @@ Hence, we supress the backwards compatibility check with the `-y` option.
   * Add and change the canister source code
   * Use mops.toml as usual
   * Use dfx to build, test and deploy locally
-* Update mops.lock file
 
 The top-level actor code should be in `src/main.mo`.
 
-### mops.lock 
-
-The `mops.lock` file is created or updated with the command
-
-```
-mops i —-lock update
-```
-
-mops generates it from `mops.toml`.
+A `mops.lock` file is not needed.
 
 ### Public did file
 
@@ -184,7 +183,7 @@ Place the `did` file to be embedded into the Wasm module in `did/service.did`.
 
 ### Moc arguments
 
-Arguments to `moc` such as specifiying the gc strategy (e.g. `--compacting-gc`, etc.) have to be placed in the `MOC_ARGS` variable in `build.sh`.
+Arguments to `moc` such as specifiying the gc strategy (e.g. `--compacting-gc`, etc.) have to be placed in the `MOC_GC_FLAGS` variable in `build.sh`.
 
 ### Enable compression
 
@@ -208,7 +207,7 @@ then it only has the `main` branch.
 This branch is set up for the latest available `moc` version and 
 an `ic-wasm` version that was available at the time when the `moc` version was released.
 
-To start with an older `moc` version we have to clone the repo instead of using it as a template.
+To start with an older `moc` version we have to clone `motoko-build-template` the repo instead of using it as a template.
 Then we can checkout older tags and continue from there.
 Tags are in the form `moc-x.y.z`.
 
@@ -222,9 +221,9 @@ The top section looks for example like this:
 ```
 x-base-image:
   versions:
-    moc: &moc 0.13.5
-    ic-wasm: &ic_wasm 0.9.1
-    mops: &mops 1.2.0
+    moc: &moc 0.13.5 
+    ic-wasm: &ic_wasm 0.9.3
+    mops-cli: &mops-cli 0.2.0
   name: &base_name "ghcr.io/research-ag/motoko-build:moc-0.13.5"
 ```
 
@@ -238,7 +237,7 @@ x-base-image:
   versions:
     moc: &moc <some version>
     ic-wasm: &ic_wasm <some version>
-    mops: &mops <some version>
+    mops-cli: &mops-cli <some version>
   name: &base_name "local/base-image"
 ```
 
@@ -247,8 +246,8 @@ The verifier has to build the base image locally.
 
 ### Advanced modifications
 
-Advances users can modify `Dockerfile`, `Dockerfile.base`, `docker-compose.yml` and `build.sh` to their liking.
-For example, `build.sh` always build the canister from `src/main.mo`.
+Advanced users can modify `Dockerfile`, `Dockerfile.base`, `docker-compose.yml` and `build.sh` to their liking.
+For example, `build.sh` always builds the canister from `src/main.mo`.
 This can be changed inside the build script. 
 
 ## Building natively
@@ -256,13 +255,13 @@ This can be changed inside the build script.
 We can also build the Wasm module natively by running `./build.sh` directly on our host system.
 In this case, docker is not used.
 
-We need to have `moc`, `ic-wasm` and `mops` installed on our system to do this.
+We need to have `moc`, `ic-wasm` and `mops-cli` installed on our system to do this.
 `dfx` is not required.
 Note that the build script will use the `moc` and `ic-wasm` versions that are in the path,
 not the ones defined in the `[toolchain]` section in `mops.toml`.
 
 The resulting Wasm module hash will depend on our machine architecture and on the `moc` and `ic-wasm` versions in the path. 
-If we are on linux and have everything configured correctly we may be able to get the reproducible module hash.
+If we are on linux and have everything configured correctly we may be able to get the reproducible module hash like this (without docker).
 
 It is recommended that the developer at least tries the `./build.sh` script natively to double-check that everything compiles successfully.
 
@@ -270,11 +269,11 @@ It is recommended that the developer at least tries the `./build.sh` script nati
 
 The following base images are available in the registry at `ghcr.io/research-ag/motoko-build:<tag>`:
 
-|tag|moc|ic-wasm|mops|
-|---|---|---|---|
-|0.13.3|0.13.3|0.9.0|1.1.1|
-|0.13.4|0.13.4|0.9.1|1.1.1|
-|0.13.5|0.13.5|0.9.1|1.2.0|
+|tag|moc|ic-wasm|
+|---|---|---|
+|0.13.3|0.13.3|0.9.0|
+|0.13.4|0.13.4|0.9.1|
+|0.13.5|0.13.5|0.9.3|
 
 ## Test vectors
 
