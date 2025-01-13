@@ -1,8 +1,10 @@
 #!/bin/bash
 
-MOC_ARGS="" ## place args like compacting-gc, incremental-gc here
+MOC_GC_FLAGS="" ## place any additional flags like compacting-gc, incremental-gc here
+MOC_FLAGS="$MOC_GC_FLAGS -no-check-ir --release --public-metadata candid:service --public-metadata candid:args"
 OUT=out/out_$(uname -s)_$(uname -m).wasm
-moc src/main.mo -c -o $OUT -no-check-ir --release --public-metadata candid:service --public-metadata candid:args $(< mops.sources) ${MOC_ARGS}
+mops-cli build --lock --name out src/main.mo -- $MOC_FLAGS $MOC_GC_FLAGS 
+cp target/out/out.wasm $OUT
 ic-wasm $OUT -o $OUT shrink
 if [ -f did/service.did ]; then
     echo "Adding service.did to metadata section."
