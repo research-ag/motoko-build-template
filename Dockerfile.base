@@ -1,30 +1,37 @@
-FROM --platform=linux/amd64 node:22-bookworm-slim
+ARG PLATFORM=linux/amd64
+FROM --platform=${PLATFORM} alpine:latest AS build
 
-RUN apt-get -yq update &&\
-  apt-get -yqq install --no-install-recommends ca-certificates curl tar &&\
-  apt-get autoremove &&\
-  apt-get clean &&\
-  rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache curl ca-certificates tar \
+    && update-ca-certificates
 
-# Install mops
-ARG MOPS_VERSION
-RUN npm i -g ic-mops@${MOPS_VERSION}
+RUN mkdir -p /install/bin
 
 # Install ic-wasm
 ARG IC_WASM_VERSION
-RUN curl -L https://github.com/dfinity/ic-wasm/releases/download/${IC_WASM_VERSION}/ic-wasm-x86_64-unknown-linux-gnu.tar.gz -o ic-wasm.tar.gz \
-    && tar xzf ic-wasm.tar.gz -C /usr/local/bin \
-    && rm ic-wasm.tar.gz
+RUN curl -L https://github.com/research-ag/ic-wasm/releases/download/${IC_WASM_VERSION}/ic-wasm-x86_64-unknown-linux-musl.tar.gz -o ic-wasm.tgz \
+    && tar xzf ic-wasm.tgz \
+    && install ic-wasm /install/bin
 
-# Fetch and install moc directly from the specified release
+# Install mops-cli 
+ARG MOPS_CLI_VERSION
+RUN curl -L https://github.com/chenyan2002/mops-cli/releases/download/${MOPS_CLI_VERSION}/mops-cli-linux64 -o mops-cli \
+    && install mops-cli /install/bin
+
+# Install moc
 ARG MOC_VERSION
 RUN if dpkg --compare-versions "${MOC_VERSION}" lt "0.9.5"; then \
-      curl -L https://github.com/dfinity/motoko/releases/download/${MOC_VERSION}/motoko-linux64-${MOC_VERSION}.tar.gz -o motoko.tar.gz; \
+      curl -L https://github.com/dfinity/motoko/releases/download/${MOC_VERSION}/motoko-linux64-${MOC_VERSION}.tar.gz -o motoko.tgz; \
     else \
-      curl -L https://github.com/dfinity/motoko/releases/download/${MOC_VERSION}/motoko-Linux-x86_64-${MOC_VERSION}.tar.gz -o motoko.tar.gz; \
+      curl -L https://github.com/dfinity/motoko/releases/download/${MOC_VERSION}/motoko-Linux-x86_64-${MOC_VERSION}.tar.gz -o motoko.tgz; \
     fi \
-    && tar xzf motoko.tar.gz -C /usr/local/bin \
-    && rm motoko.tar.gz
+    && tar xzf motoko.tgz \
+    && install moc /install/bin 
 
 # If dpkg is not available then use this line above:
 #   RUN if [ "$(printf '%s\n' "${MOC_VERSION}" "0.9.4" | sort -V | head -n 1)" = "${MOC_VERSION}" ]; then \
+
+
+
+FROM --platform=${PLATFORM} alpine:latest
+RUN apk add bash
+COPY --from=build /install/bin/* /usr/local/bin/
