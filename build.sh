@@ -3,7 +3,7 @@
 MOC_GC_FLAGS="" ## place any additional flags like compacting-gc, incremental-gc here
 MOC_FLAGS="$MOC_GC_FLAGS -no-check-ir --release --public-metadata candid:service --public-metadata candid:args"
 OUT=out/out_$(uname -s)_$(uname -m).wasm
-mops-cli build --lock --name out src/main.mo -- $MOC_FLAGS $MOC_GC_FLAGS 
+mops-cli build --lock --name out src/main.mo -- $MOC_FLAGS
 cp target/out/out.wasm $OUT
 ic-wasm $OUT -o $OUT shrink
 if [ -f did/service.did ]; then
