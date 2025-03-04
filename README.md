@@ -73,7 +73,7 @@ The fast verification pulls a base docker image from a registry and then builds 
 
 The output when run in the main branch of this repo is
 ```
-6d9e15e286fee479f51eeb31f69c8d41c00701b05d797ed16d61ce719f5b9b24  out/out_Linux_x86_64.wasm
+1340745f595db5923b6819cb8223880ecb9e7d05b811aec01c46b3c4050a6c77  out/out_Linux_x86_64.wasm
 ```
 This is the hash that needs to be compared against the module hash of the deployed canister.
 
@@ -174,6 +174,8 @@ The top-level actor code should be in `src/main.mo`.
 
 A `mops.lock` file is not needed.
 
+Note that mops.toml needs a non-empty `[dependencies]` section, otherwise mops-cli will fail. 
+
 ### Public did file
 
 For a public service canister it is recommended to embed a hand-crafted `did` file into the Wasm module instead of the auto-generated one.
@@ -221,10 +223,10 @@ The top section looks for example like this:
 ```
 x-base-image:
   versions:
-    moc: &moc 0.13.6 
+    moc: &moc 0.14.0 
     ic-wasm: &ic_wasm 0.9.3
     mops-cli: &mops-cli 0.2.0
-  name: &base_name "ghcr.io/research-ag/motoko-build:moc-0.13.6"
+  name: &base_name "ghcr.io/research-ag/motoko-build:moc-0.14.0"
 ```
 
 ### Custom toolchain
@@ -293,6 +295,7 @@ The following Wasm module hashes are obtained from the empty canister in this te
 |moc-0.13.5|530ff303b84308e6a447a832922c9a8fc9acaf4cb2fe6aa5296efc578e4a4bc4|530ff303b84308e6a447a832922c9a8fc9acaf4cb2fe6aa5296efc578e4a4bc4|
 |moc-0.13.6|33c7cc22a07d063de2e72114768490365f48edaec9cfc44ee52152fe5e484bc6|33c7cc22a07d063de2e72114768490365f48edaec9cfc44ee52152fe5e484bc6|
 |moc-0.13.7|6d9e15e286fee479f51eeb31f69c8d41c00701b05d797ed16d61ce719f5b9b24|6d9e15e286fee479f51eeb31f69c8d41c00701b05d797ed16d61ce719f5b9b24|
+|moc-0.14.0|1340745f595db5923b6819cb8223880ecb9e7d05b811aec01c46b3c4050a6c77|1340745f595db5923b6819cb8223880ecb9e7d05b811aec01c46b3c4050a6c77|
 
 We notice that since moc 0.13.4 the hashes for Linux and Mac M1 are identical. 
 
