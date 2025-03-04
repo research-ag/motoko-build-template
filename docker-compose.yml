@@ -1,9 +1,9 @@
 x-base-image:
   versions:
-    moc: &moc 0.14.0
+    moc: &moc 0.14.1
     ic-wasm: &ic_wasm 0.9.3
     mops-cli: &mops-cli 0.2.0
-  name: &base_name "ghcr.io/research-ag/motoko-build:moc-0.14.0"
+  name: &base_name "ghcr.io/research-ag/motoko-build:moc-0.14.1"
 
 services:
   base:
