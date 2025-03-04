@@ -73,7 +73,7 @@ The fast verification pulls a base docker image from a registry and then builds 
 
 The output when run in the main branch of this repo is
 ```
-33c7cc22a07d063de2e72114768490365f48edaec9cfc44ee52152fe5e484bc6  out/out_Linux_x86_64.wasm
+6d9e15e286fee479f51eeb31f69c8d41c00701b05d797ed16d61ce719f5b9b24  out/out_Linux_x86_64.wasm
 ```
 This is the hash that needs to be compared against the module hash of the deployed canister.
 
@@ -275,6 +275,7 @@ The following base images are available in the registry at `ghcr.io/research-ag/
 |0.13.4|0.13.4|0.9.1|
 |0.13.5|0.13.5|0.9.3|
 |0.13.6|0.13.6|0.9.3|
+|0.13.7|0.13.7|0.9.3|
 
 ## Test vectors
 
@@ -291,6 +292,7 @@ The following Wasm module hashes are obtained from the empty canister in this te
 |moc-0.13.4|4838b9b9fe14b71e816ad83aef9f2ff9b07fd0459949622e08f3a3908958148a|4838b9b9fe14b71e816ad83aef9f2ff9b07fd0459949622e08f3a3908958148a|
 |moc-0.13.5|530ff303b84308e6a447a832922c9a8fc9acaf4cb2fe6aa5296efc578e4a4bc4|530ff303b84308e6a447a832922c9a8fc9acaf4cb2fe6aa5296efc578e4a4bc4|
 |moc-0.13.6|33c7cc22a07d063de2e72114768490365f48edaec9cfc44ee52152fe5e484bc6|33c7cc22a07d063de2e72114768490365f48edaec9cfc44ee52152fe5e484bc6|
+|moc-0.13.7|6d9e15e286fee479f51eeb31f69c8d41c00701b05d797ed16d61ce719f5b9b24|6d9e15e286fee479f51eeb31f69c8d41c00701b05d797ed16d61ce719f5b9b24|
 
 We notice that since moc 0.13.4 the hashes for Linux and Mac M1 are identical. 
 
