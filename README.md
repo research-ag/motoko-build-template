@@ -73,7 +73,7 @@ The fast verification pulls a base docker image from a registry and then builds 
 
 The output when run in the main branch of this repo is
 ```
-6c17cb5f5f5bb8f2d09452632b76dbf3be0fd76047d0b6f87f6460c7f88812d6  out/out_Linux_x86_64.wasm
+33c7cc22a07d063de2e72114768490365f48edaec9cfc44ee52152fe5e484bc6  out/out_Linux_x86_64.wasm
 ```
 This is the hash that needs to be compared against the module hash of the deployed canister.
 
@@ -221,10 +221,10 @@ The top section looks for example like this:
 ```
 x-base-image:
   versions:
-    moc: &moc 0.13.5 
+    moc: &moc 0.13.6 
     ic-wasm: &ic_wasm 0.9.3
     mops-cli: &mops-cli 0.2.0
-  name: &base_name "ghcr.io/research-ag/motoko-build:moc-0.13.5"
+  name: &base_name "ghcr.io/research-ag/motoko-build:moc-0.13.6"
 ```
 
 ### Custom toolchain
@@ -274,13 +274,23 @@ The following base images are available in the registry at `ghcr.io/research-ag/
 |0.13.3|0.13.3|0.9.0|
 |0.13.4|0.13.4|0.9.1|
 |0.13.5|0.13.5|0.9.3|
+|0.13.6|0.13.6|0.9.3|
 
 ## Test vectors
 
 The following Wasm module hashes are obtained from the empty canister in this template repo.
 
-|branch|module hash|
-|---|---|
-|moc-0.13.3|6c17cb5f5f5bb8f2d09452632b76dbf3be0fd76047d0b6f87f6460c7f88812d6|
-|moc-0.13.4|4838b9b9fe14b71e816ad83aef9f2ff9b07fd0459949622e08f3a3908958148a|
-|moc-0.13.5|530ff303b84308e6a447a832922c9a8fc9acaf4cb2fe6aa5296efc578e4a4bc4|
+|branch|module hash linux|module hash mac M1|
+|---|---|---|
+|moc-0.12.0|9da2f91a4a9cb95796d2b738c63e7e08380f2edc816db6748c91fc35695fe68f|2dfaa3c6ea7bc3c5de359b453fa0f8eff353fce958f93f5cf29bcf9f3a7a9b71|
+|moc-0.12.1|471f2bc87d184015fc8bac16a4498ead5d179aaa2a3795f61ed6930dca1d832d|7aead023e5ae47038526780c26ea02b31b90499c1a56326663fa896d5e4eabc7|
+|moc-0.13.0|19c0da72160081fa3db9001af4c35b0767c3868258c36f33b81aee6490e3d7bd|cef0a797b45efa3dfd215a7377feb237d034eb68cbda7fcf215ed4ef98dd4538|
+|moc-0.13.1|177fc526f183fb7e9865c4b18fb6a138170e7ef9f71bec19a99294dc234e4ac0|aea582bbaa9506f569c3efcc63a72b430c2227da6adeca1a2907c7c57b4c9f7a|
+|moc-0.13.2|b3bd66219746c04502070ff81cabe45d6f6c425963da98d9e4510a6cb037892b|89fc3271c8019dbcc590abc04ff9cbb58202714385a1bd2116bd67c836828267|
+|moc-0.13.3|6c17cb5f5f5bb8f2d09452632b76dbf3be0fd76047d0b6f87f6460c7f88812d6|6ee64b25649168acd4adb6f790dcd949e44270703636677fce1a2997d90994f0|
+|moc-0.13.4|4838b9b9fe14b71e816ad83aef9f2ff9b07fd0459949622e08f3a3908958148a|4838b9b9fe14b71e816ad83aef9f2ff9b07fd0459949622e08f3a3908958148a|
+|moc-0.13.5|530ff303b84308e6a447a832922c9a8fc9acaf4cb2fe6aa5296efc578e4a4bc4|530ff303b84308e6a447a832922c9a8fc9acaf4cb2fe6aa5296efc578e4a4bc4|
+|moc-0.13.6|33c7cc22a07d063de2e72114768490365f48edaec9cfc44ee52152fe5e484bc6|33c7cc22a07d063de2e72114768490365f48edaec9cfc44ee52152fe5e484bc6|
+
+We notice that since moc 0.13.4 the hashes for Linux and Mac M1 are identical. 
+
