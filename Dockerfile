@@ -18,6 +18,7 @@ RUN mkdir -p ~/.mops/bin \
 
 COPY src /project/src/
 COPY di[d] /project/did/
+COPY build-scripts /project/build-scripts
 COPY build.sh /project
 
 CMD ["/bin/bash"]

@@ -7,8 +7,6 @@ This allows users to verify the canisters that they interact with.
 To do so, the user clones the repo, runs the reproducible build process and compares the resulting Wasm module hash
 against the module hash of the deployed canister which is always publicly visible. 
 
-The repository is designed for a single canister per repository.
-
 ## How It Works
 
 We use docker to guarantee a consistent build environment.
@@ -73,7 +71,7 @@ The fast verification pulls a base docker image from a registry and then builds 
 
 The output when run in the main branch of this repo is
 ```
-79b15176dc613860f35867828f40e7d6db884c25a5cfd0004f49c3b4b0b3fd5c  out/out_Linux_x86_64.wasm
+79b15176dc613860f35867828f40e7d6db884c25a5cfd0004f49c3b4b0b3fd5c  out/main_Linux_x86_64.wasm
 ```
 This is the hash that needs to be compared against the module hash of the deployed canister.
 
@@ -131,7 +129,7 @@ This pulls the base image from the registry.
 ## Usage by deployer
 
 Clone the repo and run any verification like the verifier.
-The generated Wasm module is available in the file `out/out_Linux_x86_64.wasm`.
+The generated Wasm modules are available in the `out/` directory.
 
 ### First deployment
 
@@ -139,7 +137,7 @@ Create and install the canister with:
 
 ```
 dfx canister --ic create empty
-dfx canister --ic install empty --wasm out/out_Linux_x86_64.wasm
+dfx canister --ic install empty --wasm out/main_Linux_x86_64.wasm
 ```
 
 Here, `empty` is a canister alias defined in `dfx.json` of the template repo.
@@ -148,13 +146,13 @@ In practice, it has to be replaced with the canister alias of the real repo.
 ### Reinstall
 
 ```
-dfx canister --ic install empty --wasm out/out_Linux_x86_64.wasm --mode reinstall
+dfx canister --ic install empty --wasm out/main_Linux_x86_64.wasm --mode reinstall
 ```
 
 ### Upgrade
 
 ```
-dfx canister --ic install empty --wasm out/out_Linux_x86_64.wasm --mode upgrade -y
+dfx canister --ic install empty --wasm out/main_Linux_x86_64.wasm --mode upgrade -y
 ```
 
 Note that checking backwards compatibility of the canister's public API or the canister's stable variables is not possible.
@@ -170,7 +168,11 @@ Hence, we supress the backwards compatibility check with the `-y` option.
   * Use mops.toml as usual
   * Use dfx to build, test and deploy locally
 
-The top-level actor code should be in `src/main.mo`.
+For each canister corresponding build script should be created in the `./build-scripts` directory. 
+Copy main.sh and update it according to your needs. You should do these changes there:
+- `CANISTER_ALIAS` - an alias of the canister. This value should be unique among the canisters in the repo
+- `MAIN_FILE` - the top-level actor code path
+- `DID_FILE` - path to the `service.did` file to be embedded.
 
 A `mops.lock` file is not needed.
 
@@ -179,9 +181,7 @@ Note that mops.toml needs a non-empty `[dependencies]` section, otherwise mops-c
 ### Public did file
 
 For a public service canister it is recommended to embed a hand-crafted `did` file into the Wasm module instead of the auto-generated one.
-The hand-crafted file can be better structured, more verbose and have better type names.  
-
-Place the `did` file to be embedded into the Wasm module in `did/service.did`.
+The hand-crafted file can be better structured, more verbose and have better type names.
 
 ### Moc arguments
 
@@ -248,8 +248,8 @@ The verifier has to build the base image locally.
 
 ### Advanced modifications
 
-Advanced users can modify `Dockerfile`, `Dockerfile.base`, `docker-compose.yml` and `build.sh` to their liking.
-For example, `build.sh` always builds the canister from `src/main.mo`.
+Advanced users can modify `Dockerfile`, `Dockerfile.base`, `docker-compose.yml` and `build-scripts/*.sh` to their liking.
+For example, build scripts define MOC flags.
 This can be changed inside the build script. 
 
 ## Building natively
