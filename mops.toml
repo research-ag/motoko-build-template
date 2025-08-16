@@ -1,5 +1,23 @@
+[package]
+name = "sample"
+version = "0.1."
+description = "sample description"
+repository = "https://github.com/sample-org/sample"
+keywords = [ "sampleword" ]
+
 [dependencies]
-base = "0.14.3"
+core = "1.0.0"
+ovs-fixed = "0.1.4"
+class-plus = "0.0.1"
+timer-tool = "0.1.1"
+star = "0.1.1"
+map = "9.0.1"
+icrc10-mo = "0.0.1"
+stable-local-log = "0.1.1"
 
 [toolchain]
-moc = "0.14.3"
+moc = "0.15.1"
+
+[dev-dependencies]
+test = "2.1.1"
+bench = "1.0.0"

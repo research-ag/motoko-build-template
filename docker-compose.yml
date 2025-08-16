@@ -1,5 +1,6 @@
 x-base-image:
   versions:
+    dfx: &dfx 0.14.3
     moc: &moc 0.14.3
     ic-wasm: &ic_wasm 0.9.3
     mops-cli: &mops-cli 0.2.0
@@ -12,6 +13,7 @@ services:
       dockerfile: Dockerfile.base
       args:
         MOC_VERSION: *moc
+        DFX_VERSION: *dfx
         IC_WASM_VERSION: *ic_wasm
         MOPS_CLI_VERSION: *mops-cli
     image: *base_name
