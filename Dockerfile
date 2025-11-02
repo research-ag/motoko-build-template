@@ -12,7 +12,7 @@ COPY mops.toml ./
 RUN mkdir -p ~/.mops/bin \
     && ln -s /usr/local/bin/moc ~/.mops/bin/moc \
     && touch ~/.mops/bin/mo-fmt \
-    && echo "actor {}" >tmp.mo \
+    && echo "persistent actor {}" >tmp.mo \
     && mops-cli build tmp.mo -- --check \
     && rm -r tmp.mo target/tmp
 

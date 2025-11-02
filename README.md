@@ -73,7 +73,7 @@ The fast verification pulls a base docker image from a registry and then builds 
 
 The output when run in the main branch of this repo is
 ```
-79b15176dc613860f35867828f40e7d6db884c25a5cfd0004f49c3b4b0b3fd5c  out/out_Linux_x86_64.wasm
+91f0eb0bc89fbf851e6b7a93d4dd7505d0f1a684fb3d076138045c1cfd56f657  out/out_Linux_x86_64.wasm
 ```
 This is the hash that needs to be compared against the module hash of the deployed canister.
 
@@ -223,10 +223,10 @@ The top section looks for example like this:
 ```
 x-base-image:
   versions:
-    moc: &moc 0.14.3 
+    moc: &moc 0.16.0 
     ic-wasm: &ic_wasm 0.9.3
     mops-cli: &mops-cli 0.2.0
-  name: &base_name "ghcr.io/research-ag/motoko-build:moc-0.14.3"
+  name: &base_name "ghcr.io/research-ag/motoko-build:moc-0.16.0"
 ```
 
 ### Custom toolchain
@@ -282,6 +282,7 @@ The following base images are available in the registry at `ghcr.io/research-ag/
 |0.14.1|0.14.1|0.9.3|
 |0.14.2|0.14.2|0.9.3|
 |0.14.3|0.14.3|0.9.3|
+|0.16.0|0.16.0|0.9.3|
 
 ## Test vectors
 
@@ -303,6 +304,7 @@ The following Wasm module hashes are obtained from the empty canister in this te
 |moc-0.14.1|31c9552d1f5c97d211579e71e20e34b0454692c1c80ecc352e7f361423c3024a|31c9552d1f5c97d211579e71e20e34b0454692c1c80ecc352e7f361423c3024a|
 |moc-0.14.2|beee32d5e9a8afaf5152ea1321bf9c291698ec3152abe11f75de31e9ba448cad|beee32d5e9a8afaf5152ea1321bf9c291698ec3152abe11f75de31e9ba448cad|
 |moc-0.14.3|79b15176dc613860f35867828f40e7d6db884c25a5cfd0004f49c3b4b0b3fd5c|79b15176dc613860f35867828f40e7d6db884c25a5cfd0004f49c3b4b0b3fd5c|
+|moc-0.16.0|91f0eb0bc89fbf851e6b7a93d4dd7505d0f1a684fb3d076138045c1cfd56f657|91f0eb0bc89fbf851e6b7a93d4dd7505d0f1a684fb3d076138045c1cfd56f657|
 
 We notice that since moc 0.13.4 the hashes for Linux and Mac M1 are identical. 
 
