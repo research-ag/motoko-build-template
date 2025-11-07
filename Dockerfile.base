@@ -12,9 +12,9 @@ RUN curl -L https://github.com/research-ag/ic-wasm/releases/download/${IC_WASM_V
     && tar xzf ic-wasm.tgz \
     && install ic-wasm /install/bin
 
-# Install mops-cli 
+# Install mops-cli (using prometheus-protocol fork with @ symbol fix)
 ARG MOPS_CLI_VERSION
-RUN curl -L https://github.com/dfinity/mops-cli/releases/download/${MOPS_CLI_VERSION}/mops-cli-linux64 -o mops-cli \
+RUN curl -L https://github.com/prometheus-protocol/mops-cli/releases/download/v${MOPS_CLI_VERSION}/mops-cli-linux64 -o mops-cli \
     && install mops-cli /install/bin
 
 # Install moc

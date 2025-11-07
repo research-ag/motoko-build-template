@@ -57,7 +57,7 @@ Similarly, the deployer does not need moc or mops.
 Clone the canister repo:
 
 ```bash
-git clone git@github.com:research-ag/motoko-build-template.git
+git clone git@github.com:prometheus-protocol/motoko-build-template.git
 cd motoko-build-template
 ```
 
@@ -73,7 +73,7 @@ The fast verification pulls a base docker image from a registry and then builds 
 
 The output when run in the main branch of this repo is
 ```
-79b15176dc613860f35867828f40e7d6db884c25a5cfd0004f49c3b4b0b3fd5c  out/out_Linux_x86_64.wasm
+91f0eb0bc89fbf851e6b7a93d4dd7505d0f1a684fb3d076138045c1cfd56f657  out/out_Linux_x86_64.wasm
 ```
 This is the hash that needs to be compared against the module hash of the deployed canister.
 
@@ -223,10 +223,10 @@ The top section looks for example like this:
 ```
 x-base-image:
   versions:
-    moc: &moc 0.14.3 
+    moc: &moc 0.16.0 
     ic-wasm: &ic_wasm 0.9.3
-    mops-cli: &mops-cli 0.2.0
-  name: &base_name "ghcr.io/research-ag/motoko-build:moc-0.14.3"
+    mops-cli: &mops-cli 0.2.1
+  name: &base_name "ghcr.io/prometheus-protocol/motoko-build-template:moc-0.16.0"
 ```
 
 ### Custom toolchain
@@ -269,19 +269,13 @@ It is recommended that the developer at least tries the `./build.sh` script nati
 
 ## Base images
 
-The following base images are available in the registry at `ghcr.io/research-ag/motoko-build:<tag>`:
+The following base images are available in the registry at `ghcr.io/prometheus-protocol/motoko-build-template:<tag>`:
 
-|tag|moc|ic-wasm|
-|---|---|---|
-|0.13.3|0.13.3|0.9.0|
-|0.13.4|0.13.4|0.9.1|
-|0.13.5|0.13.5|0.9.3|
-|0.13.6|0.13.6|0.9.3|
-|0.13.7|0.13.7|0.9.3|
-|0.14.0|0.14.0|0.9.3|
-|0.14.1|0.14.1|0.9.3|
-|0.14.2|0.14.2|0.9.3|
-|0.14.3|0.14.3|0.9.3|
+|tag|moc|ic-wasm|mops-cli|
+|---|---|---|---|
+|moc-0.16.0|0.16.0|0.9.3|0.2.1|
+
+Note: This fork maintains updated toolchain versions with the moc 0.16.0+ persistent actor syntax and includes a patched mops-cli (v0.2.1) that fixes handling of `@` symbols in package version pinning.
 
 ## Test vectors
 
@@ -303,6 +297,6 @@ The following Wasm module hashes are obtained from the empty canister in this te
 |moc-0.14.1|31c9552d1f5c97d211579e71e20e34b0454692c1c80ecc352e7f361423c3024a|31c9552d1f5c97d211579e71e20e34b0454692c1c80ecc352e7f361423c3024a|
 |moc-0.14.2|beee32d5e9a8afaf5152ea1321bf9c291698ec3152abe11f75de31e9ba448cad|beee32d5e9a8afaf5152ea1321bf9c291698ec3152abe11f75de31e9ba448cad|
 |moc-0.14.3|79b15176dc613860f35867828f40e7d6db884c25a5cfd0004f49c3b4b0b3fd5c|79b15176dc613860f35867828f40e7d6db884c25a5cfd0004f49c3b4b0b3fd5c|
+|moc-0.16.0|91f0eb0bc89fbf851e6b7a93d4dd7505d0f1a684fb3d076138045c1cfd56f657|91f0eb0bc89fbf851e6b7a93d4dd7505d0f1a684fb3d076138045c1cfd56f657|
 
 We notice that since moc 0.13.4 the hashes for Linux and Mac M1 are identical. 
-
