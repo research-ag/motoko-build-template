@@ -3,7 +3,7 @@ x-base-image:
     moc: &moc 0.16.0
     ic-wasm: &ic_wasm 0.9.3
     mops-cli: &mops-cli 0.2.1
-  name: &base_name "ghcr.io/jneums/motoko-build-template:moc-0.16.0"
+  name: &base_name "ghcr.io/prometheus-protocol/motoko-build-template:moc-0.16.0"
 
 services:
   base:

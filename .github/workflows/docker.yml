@@ -52,6 +52,6 @@ jobs:
         if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
         run: |
           IMAGE_NAME=$(docker compose config | grep 'image:' | head -1 | awk '{print $2}')
-          LATEST_TAG="ghcr.io/${{ github.repository_owner }}/motoko-build-template:latest"
+          LATEST_TAG="ghcr.io/prometheus-protocol/motoko-build-template:latest"
           docker tag ${IMAGE_NAME} ${LATEST_TAG}
           docker push ${LATEST_TAG}

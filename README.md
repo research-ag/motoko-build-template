@@ -57,7 +57,7 @@ Similarly, the deployer does not need moc or mops.
 Clone the canister repo:
 
 ```bash
-git clone git@github.com:jneums/motoko-build-template.git
+git clone git@github.com:prometheus-protocol/motoko-build-template.git
 cd motoko-build-template
 ```
 
@@ -226,7 +226,7 @@ x-base-image:
     moc: &moc 0.16.0 
     ic-wasm: &ic_wasm 0.9.3
     mops-cli: &mops-cli 0.2.1
-  name: &base_name "ghcr.io/jneums/motoko-build-template:moc-0.16.0"
+  name: &base_name "ghcr.io/prometheus-protocol/motoko-build-template:moc-0.16.0"
 ```
 
 ### Custom toolchain
@@ -269,7 +269,7 @@ It is recommended that the developer at least tries the `./build.sh` script nati
 
 ## Base images
 
-The following base images are available in the registry at `ghcr.io/jneums/motoko-build-template:<tag>`:
+The following base images are available in the registry at `ghcr.io/prometheus-protocol/motoko-build-template:<tag>`:
 
 |tag|moc|ic-wasm|mops-cli|
 |---|---|---|---|

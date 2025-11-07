@@ -1,5 +1,10 @@
 [dependencies]
 base = "0.16.0"
+json = "1.4.0"
+map = "9.0.1"
+http-types = "1.0.1"
+ic = "3.2.0"
+mcp-motoko-sdk = "2.0.2"
 
 [toolchain]
 moc = "0.16.0"
