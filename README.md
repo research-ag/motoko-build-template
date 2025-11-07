@@ -57,7 +57,7 @@ Similarly, the deployer does not need moc or mops.
 Clone the canister repo:
 
 ```bash
-git clone git@github.com:research-ag/motoko-build-template.git
+git clone git@github.com:jneums/motoko-build-template.git
 cd motoko-build-template
 ```
 
@@ -225,8 +225,8 @@ x-base-image:
   versions:
     moc: &moc 0.16.0 
     ic-wasm: &ic_wasm 0.9.3
-    mops-cli: &mops-cli 0.2.0
-  name: &base_name "ghcr.io/research-ag/motoko-build:moc-0.16.0"
+    mops-cli: &mops-cli 0.2.1
+  name: &base_name "ghcr.io/jneums/motoko-build-template:moc-0.16.0"
 ```
 
 ### Custom toolchain
@@ -269,20 +269,13 @@ It is recommended that the developer at least tries the `./build.sh` script nati
 
 ## Base images
 
-The following base images are available in the registry at `ghcr.io/research-ag/motoko-build:<tag>`:
+The following base images are available in the registry at `ghcr.io/jneums/motoko-build-template:<tag>`:
 
-|tag|moc|ic-wasm|
-|---|---|---|
-|0.13.3|0.13.3|0.9.0|
-|0.13.4|0.13.4|0.9.1|
-|0.13.5|0.13.5|0.9.3|
-|0.13.6|0.13.6|0.9.3|
-|0.13.7|0.13.7|0.9.3|
-|0.14.0|0.14.0|0.9.3|
-|0.14.1|0.14.1|0.9.3|
-|0.14.2|0.14.2|0.9.3|
-|0.14.3|0.14.3|0.9.3|
-|0.16.0|0.16.0|0.9.3|
+|tag|moc|ic-wasm|mops-cli|
+|---|---|---|---|
+|moc-0.16.0|0.16.0|0.9.3|0.2.1|
+
+Note: This fork maintains updated toolchain versions with the moc 0.16.0+ persistent actor syntax and includes a patched mops-cli (v0.2.1) that fixes handling of `@` symbols in package version pinning.
 
 ## Test vectors
 
@@ -307,4 +300,3 @@ The following Wasm module hashes are obtained from the empty canister in this te
 |moc-0.16.0|91f0eb0bc89fbf851e6b7a93d4dd7505d0f1a684fb3d076138045c1cfd56f657|91f0eb0bc89fbf851e6b7a93d4dd7505d0f1a684fb3d076138045c1cfd56f657|
 
 We notice that since moc 0.13.4 the hashes for Linux and Mac M1 are identical. 
-

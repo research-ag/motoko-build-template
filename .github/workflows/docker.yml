@@ -5,20 +5,50 @@ on:
     tags:
       - 'moc-*'
       - 'latest'
+    branches:
+      - 'update-moc-0.16.0'  # Allow testing on your branch
+  workflow_dispatch:  # Allow manual trigger
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Log in to GitHub Container Registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        run: |
+          # Extract moc version from docker-compose.yml
+          MOC_VERSION=$(grep 'moc:.*&moc' docker-compose.yml | sed 's/.*&moc //g')
+          echo "moc_version=${MOC_VERSION}" >> $GITHUB_OUTPUT
+          echo "Building image for moc version: ${MOC_VERSION}"
 
       - name: Build Docker image
         run: docker compose build base
 
+      - name: Test Docker image
+        run: |
+          docker run --rm $(docker compose config | grep 'image:' | head -1 | awk '{print $2}') moc --version
+
       - name: Push Docker image
         run: docker compose push base
+
+      - name: Tag and push latest (if on main/master)
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+        run: |
+          IMAGE_NAME=$(docker compose config | grep 'image:' | head -1 | awk '{print $2}')
+          LATEST_TAG="ghcr.io/${{ github.repository_owner }}/motoko-build-template:latest"
+          docker tag ${IMAGE_NAME} ${LATEST_TAG}
+          docker push ${LATEST_TAG}
