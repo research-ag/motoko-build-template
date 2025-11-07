@@ -40,7 +40,10 @@ jobs:
 
       - name: Test Docker image
         run: |
-          docker run --rm $(docker compose config | grep 'image:' | head -1 | awk '{print $2}') moc --version
+          IMAGE_NAME=$(docker compose config | grep 'image:' | head -1 | awk '{print $2}')
+          docker run --rm ${IMAGE_NAME} moc --version
+          docker run --rm ${IMAGE_NAME} ic-wasm --version
+          docker run --rm ${IMAGE_NAME} mops-cli --help
 
       - name: Push Docker image
         run: docker compose push base
